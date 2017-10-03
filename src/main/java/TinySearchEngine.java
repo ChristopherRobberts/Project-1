@@ -24,6 +24,9 @@ public class TinySearchEngine implements TinySearchEngineBase{
         //return wordList.search(query);
     }
 
+    //split the query with the regex " ". If the index equals the string "orderby" it should expect two more arguments
+    //following, property and direction, in precisely that order, and we break the loop. If the string never equals
+    //"orderby" we keep on adding words to our query array list.
     private List<Document> parse(String query){
         String[] tokens = query.split(" ");
         ArrayList<String> words = new ArrayList<String>();

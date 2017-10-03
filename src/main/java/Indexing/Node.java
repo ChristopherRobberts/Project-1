@@ -26,7 +26,6 @@ public class Node {
     public void insert(Attributes att){
         Document doc = att.document;
         NodeData data = new NodeData(doc);
-        //data = insert(doc, nodeDataList, data);
         nodeDataList.add(data);
         data.insert(att.occurrence);
     }
@@ -47,46 +46,6 @@ public class Node {
     public static ArrayList<Document> nodeDatasToDocument(ArrayList<NodeData> appearances) {
         return nodeDataToDocument(appearances);
     }
-
-   /* private static NodeData insert(Document doc, ArrayList<NodeData> arr, NodeData data){
-        if(arr.size() == 0){
-            arr.add(data);
-        }
-        int pos = search(doc, arr, 0, arr.size());
-        if(pos < 0){
-            pos = -pos - 1;
-            if(pos >= arr.size())
-                arr.add(data);
-            else if (arr.get(pos).getDocument().compareTo(doc) > 0)
-                arr.add(pos, data);
-            else
-                arr.add(pos + 1, data);
-            return data;
-        }
-        else
-            return arr.get(pos);
-    }
-
-    //binary search method for this class
-    private static int search(Document doc, ArrayList<NodeData> a, int lo, int hi) {
-        if(a.size() == 0){
-            return -1;
-        }
-        int mid = 0;
-        int cmp;
-        while(lo < hi){
-            mid = lo + (hi - lo) / 2;
-            cmp = a.get(mid).getDocument().compareTo(doc);
-            if(cmp < 0) {
-                hi = mid;
-            }
-            else if(cmp > 0)
-                lo = mid + 1;
-            else
-                return mid;
-        }
-        return(-mid - 1);
-    } */
 
     public String getWord(){ return this.key; }
 

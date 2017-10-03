@@ -29,15 +29,6 @@ public class WordList {
         wordNode.insert(att);
     }
 
-    /*public ArrayList<Document> search(String key) {
-        Node current = getNode(key);
-
-        if (current == null)
-            return null;
-
-        return current.getDocuments();
-    } */
-
     //This method accesses the given node by searching for it's word key and returns all that nodes data
     //(documents & occurrences). If the node doesn't exist in the array we return an empty array.
     public ArrayList<NodeData> getNodeDatas(String key){
@@ -54,6 +45,7 @@ public class WordList {
     private Node getNode(String key)
     {
         ArrayList<Node> listOfWords = this.getWords();
+        //binary search to find the given node given the key.
         int index = search(key, listOfWords, 0, listOfWords.size());
         Node currentNode;
         try{
@@ -70,44 +62,44 @@ public class WordList {
         return this.words;
     }
 
-
+    //The insert method inserts new nodes in to the array list. It does a binary search and sets it to the pos variable,
+    //which will receive the value from the binary search.
     private static Node insert(String key, Node n, ArrayList<Node> arr){
         if(arr.size() == 0){
             arr.add(n);
         }
-        int pos = search(key, arr, 0, arr.size() - 1);
-        if(pos < 0){
-            pos = -pos -1;
-            if(pos >= arr.size())
+        int position = search(key, arr, 0, arr.size() - 1);
+        if(position < 0){
+            position = -position -1;
+            if(position >= arr.size())
                 arr.add(n);
-            else if (arr.get(pos).getWord().compareTo(key) > 0)
-                arr.add(pos, n);
+            else if (arr.get(position).getWord().compareTo(key) > 0)
+                arr.add(position, n);
             else
-                arr.add(pos + 1, n);
+                arr.add(position + 1, n);
             return n;
         }
         else
-            return arr.get(pos);
+            return arr.get(position);
     }
 
     //Binary search method for this class
     private static int search(String key, ArrayList<Node> a, int lo, int hi) {
-        int mid = 0;
-        int cmp;
         if(a.size() == 0){
             return -1;
         }
+        int mid = 0;
         while(lo < hi){
             mid = lo + (hi - lo) / 2;
-            cmp = a.get(mid).getWord().compareTo(key);
-
-            if(cmp > 0)
-                hi = mid;
-            else if(cmp < 0)
+            String cmp = a.get(mid).getWord();
+            int compare = cmp.compareTo(key);
+            if (compare < 0)
                 lo = mid + 1;
+            else if (compare > 0)
+                hi = mid;
             else
                 return mid;
         }
-        return -mid - 1;
+        return -mid-1;
     }
 }
